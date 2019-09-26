@@ -11,9 +11,9 @@ html {
 }
 
 /* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #FF0000;
-}
+} */
 
 .container {
   width: 100vw;
@@ -30,10 +30,40 @@ html {
   margin-right: 5px;
   background-color: rgb(191, 210, 223);
   padding: 0 !important;
-  display: inline-block;
+  /* display: inline-block; */
+  position: relative;
+  float: left;
 }
 
-iframe {
+.iframe_container_div iframe {
   width: 99%;
   height: 99%;
+  z-index: 1;
+  width: 1000px;
+  height: 750px;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  transform-origin: 0 0;
+  position: relative;
+  margin-bottom:20px;
+
+
+  -webkit-transform: scale(0.3, 0.3);
+  /* Gets the size down to fit into your .thumbnail. */
+  -moz-transform: scale(0.3, 0.3);
+  /* Gets the size down to fit into your .thumbnail. */
+  transform: scale(0.3, 0.3);
+  /* Gets the size down to fit into your .thumbnail. */
+  overflow: hidden;
+}
+
+.btn_container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  margin-left: -10px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  z-index: 2;
 }

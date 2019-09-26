@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('.fixed-action-btn').floatingActionButton();
 });
 
+var target_id;
 //modal init
 
 $(document).ready(function() {
@@ -25,34 +26,61 @@ $('#approve').click(function(e) {
     }
 });
 
-//set url
-// $('.iframe_container_div').click(function(e) {
-//     // e.preventDefault();
-//     console.log('test: ', $(this).attr('id'))
-//         //modal2
-// });
-
-// $('iframe').on('load', function() {
-//     $(this).contents().find("body").on('click', function(event) { console.log('test'); });
-// });
+$('#approve_url').click(function(e) {
+    e.preventDefault();
+    let url = $('#set_url').val();
+    console.log("TCL: url", url);
+    $(`#${target_id}`).append(iframeRender(url))
+    target_id = null;
+});
 
 function iframeRender(url) {
     let iframe = $('<iframe>', {
-        src: null,
-        id: id,
+        src: url,
         frameborder: 1
     });
     return iframe;
 }
 
 function iframeContainerRender(id) {
-    return $('<div>', {
+
+    let i_resize = $('<i>', {
+        text: 'switch_camera',
+        class: 'material-icons'
+    });
+    let i_url = $('<i>', {
+        text: 'create',
+        class: 'material-icons'
+    });
+
+    let resize = $('<button>', {
+        class: 'btn waves-effect waves-light iframe_btn'
+    }).append(i_resize);
+
+    let change_url = $('<button>', {
+        class: 'btn waves-effect waves-light iframe_btn'
+    }).append(i_url);
+
+    let btn_container = $('<div>', {
+        class: 'btn_container'
+    });
+
+    let div = $('<div>', {
         id: id,
         class: 'iframe_container_div modal-trigger',
         href: "#modal2"
-    }).click(function(e) {
+    })
+
+
+
+    resize.appendTo(btn_container);
+    change_url.appendTo(btn_container);
+    btn_container.appendTo(div)
+
+    div.click(function(e) {
         e.preventDefault();
-        console.log('id: ', $(this).attr('id'))
-            //modal2
+        target_id = $(this).attr('id');
     });
+
+    return div;
 }
