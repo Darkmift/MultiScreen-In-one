@@ -1,11 +1,8 @@
+var target_id;
 //side button bottom right
 $(document).ready(function() {
     $('.fixed-action-btn').floatingActionButton();
-});
-
-var target_id;
-//modal init
-$(document).ready(function() {
+    //modal init
     $('.modal').modal();
 });
 
@@ -27,10 +24,11 @@ $('#add_one').click(function(e) {
     console.log("TCL: container", container)
     iframeContainerRender($('.iframe_container_div').length + 1)
         .appendTo(container)
-})
+});
+
 $('#remove_all').click(function(e) {
     $('.container').empty();
-})
+});
 
 $('#approve_url').click(function(e) {
     e.preventDefault();
