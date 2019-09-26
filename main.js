@@ -30,6 +30,7 @@ $('#approve_url').click(function(e) {
     e.preventDefault();
     let url = $('#set_url').val();
     console.log("TCL: url", url);
+    $(`#${target_id}`).find('iframe').remove();
     $(`#${target_id}`).append(iframeRender(url))
     target_id = null;
 });
@@ -54,12 +55,25 @@ function iframeContainerRender(id) {
     });
 
     let resize = $('<button>', {
-        class: 'btn waves-effect waves-light iframe_btn'
+        class: 'btn waves-effect waves-light iframe_btn modal-trigger',
+        href: "#modal3"
     }).append(i_resize);
+    resize.click(function(e) {
+        // e.preventDefault();
+        let url = $(`#${id}`).find('iframe').attr('src');
+        $('.currentFrame').attr('src',url);
+        // $('#currentFrame').append(iframeRender(url));
+    });
 
     let change_url = $('<button>', {
-        class: 'btn waves-effect waves-light iframe_btn'
-    }).append(i_url);
+        class: 'btn waves-effect waves-light iframe_btn modal-trigger',
+        href: "#modal2"
+    }).click(function(e) {
+        e.preventDefault();
+        target_id = $(this).attr('id');
+    });
+
+    change_url.append(i_url);
 
     let btn_container = $('<div>', {
         class: 'btn_container'
@@ -67,7 +81,7 @@ function iframeContainerRender(id) {
 
     let div = $('<div>', {
         id: id,
-        class: 'iframe_container_div modal-trigger',
+        class: 'iframe_container_div modal-trigger col-s12',
         href: "#modal2"
     })
 

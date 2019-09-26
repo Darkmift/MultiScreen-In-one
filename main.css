@@ -5,55 +5,77 @@ html {
 
 ::-webkit-scrollbar {
   width: 0px;
-  /* Remove scrollbar space */
   background: transparent;
-  /* Optional: just make scrollbar invisible */
 }
-
-/* Optional: show position indicator in red */
-/* ::-webkit-scrollbar-thumb {
-  background: #FF0000;
-} */
 
 .container {
   width: 100vw;
   height: 100vh;
-  /* margin-top: 20px;*/
   padding: 20px !important;
   background-color: rgb(207, 219, 213);
   overflow-y: scroll;
 }
 
 .iframe_container_div {
-  width: calc(25% - 5px);
-  height: 30vh;
+  width: calc(50% - 5px);
+  height: 50vh;
   margin-right: 5px;
   background-color: rgb(191, 210, 223);
   padding: 0 !important;
-  /* display: inline-block; */
+  margin-bottom: 5px;
   position: relative;
   float: left;
+}
+
+#modal3 {
+  top: 0 ;
+  bottom: 0 ;
+  left: 0 ;
+  width: 99%;
+  height: 99%;
+  right: 0 ;
+  margin: 5px ;
+  position: absolute;
+}
+
+#modal3 .modal-content {
+  width: 99%;
+  height: 99%;
+  padding: 0;
+  z-index: 0;
+  /* position: relative; */
+}
+
+#modal3 iframe {
+  z-index: 0;
+  width: 1000px;
+  height: 750px;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  transform-origin: 0 0;
+  top: 0 ;
+  bottom: 0 ;
+  left: 0 ;
+  width: 99%;
+  height: 99%;
+  right: 0 ;
+  margin: 5px ;
+  position: absolute;
+  padding: 0;
+  overflow: hidden;
 }
 
 .iframe_container_div iframe {
   width: 99%;
   height: 99%;
-  z-index: 1;
+  z-index: 0;
   width: 1000px;
   height: 750px;
   -webkit-transform-origin: 0 0;
   -moz-transform-origin: 0 0;
   transform-origin: 0 0;
   position: relative;
-  margin-bottom:20px;
-
-
-  -webkit-transform: scale(0.3, 0.3);
-  /* Gets the size down to fit into your .thumbnail. */
-  -moz-transform: scale(0.3, 0.3);
-  /* Gets the size down to fit into your .thumbnail. */
-  transform: scale(0.3, 0.3);
-  /* Gets the size down to fit into your .thumbnail. */
+  -webkit-transform: scale(0.6125, 0.5);
   overflow: hidden;
 }
 
