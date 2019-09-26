@@ -5,14 +5,10 @@ $(document).ready(function() {
 
 var target_id;
 //modal init
-
 $(document).ready(function() {
     $('.modal').modal();
 });
 
-
-
-// screen_count
 $('#approve').click(function(e) {
     e.preventDefault();
     let screen_count = $('#screen_count').val();
@@ -20,11 +16,21 @@ $('#approve').click(function(e) {
     if (screen_count > 0) {
         let container = $('.container');
         for (let index = 0; index < screen_count; index++) {
-            iframeContainerRender(index + 1)
+            iframeContainerRender($('.iframe_container_div').length + 1)
                 .appendTo(container)
         }
     }
 });
+
+$('#add_one').click(function(e) {
+    let container = $('.container');
+    console.log("TCL: container", container)
+    iframeContainerRender($('.iframe_container_div').length + 1)
+        .appendTo(container)
+})
+$('#remove_all').click(function(e) {
+    $('.container').empty();
+})
 
 $('#approve_url').click(function(e) {
     e.preventDefault();
@@ -33,6 +39,7 @@ $('#approve_url').click(function(e) {
     $(`#${target_id}`).find('iframe').remove();
     $(`#${target_id}`).append(iframeRender(url))
     target_id = null;
+    $('#set_url').val('')
 });
 
 function iframeRender(url) {
@@ -61,7 +68,7 @@ function iframeContainerRender(id) {
     resize.click(function(e) {
         // e.preventDefault();
         let url = $(`#${id}`).find('iframe').attr('src');
-        $('.currentFrame').attr('src',url);
+        $('.currentFrame').attr('src', url);
         // $('#currentFrame').append(iframeRender(url));
     });
 
