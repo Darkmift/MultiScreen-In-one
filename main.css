@@ -1,0 +1,39 @@
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  /* margin-top: 20px;*/
+  padding: 20px !important;
+  background-color: rgb(207, 219, 213);
+  overflow-y: scroll;
+}
+
+.iframe_container_div {
+  width: calc(25% - 5px);
+  height: 30vh;
+  margin-right: 5px;
+  background-color: rgb(191, 210, 223);
+  padding: 0 !important;
+  display: inline-block;
+}
+
+iframe {
+  width: 99%;
+  height: 99%;
+}
