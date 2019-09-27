@@ -1,4 +1,9 @@
 var target_id;
+var lsh = new LSH();
+const stored_data = lsh.get("stored_data")
+  ? lsh.get("stored_data")
+  : lsh.set("stored_data", {});
+
 //side button bottom right
 $(document).ready(function() {
   $(".fixed-action-btn").floatingActionButton();
@@ -11,6 +16,20 @@ $(document).ready(function() {
       });
     }
   });
+
+  for (const key in stored_data) {
+    if (stored_data.hasOwnProperty(key)) {
+      const url = stored_data[key];
+      let container = $(".container");
+      let frameDiv = iframeContainerRender(
+        Object.keys(stored_data).indexOf(key)
+      );
+      let iframe = iframeRender(url);
+
+      iframe.appendTo(frameDiv);
+      frameDiv.appendTo(container);
+    }
+  }
 });
 
 $(".cancel").click(function(e) {
@@ -36,23 +55,29 @@ $("#approve").click(function(e) {
 $("#add_one").click(function(e) {
   let container = $(".container");
   console.log("TCL: container", container);
-  iframeContainerRender($(".iframe_container_div").length + 1).appendTo(
-    container
-  );
+  iframeContainerRender(stored_data.length + 1).appendTo(container);
 });
 
 $("#remove_all").click(function(e) {
   $(".container").empty();
+  lsh.set("stored_data", {});
 });
 
 $("#approve_url").click(function(e) {
   e.preventDefault();
   let url = $("#set_url").val();
-  console.log("TCL: url", url);
   $(`#${target_id}`)
     .find("iframe")
     .remove();
   $(`#${target_id}`).append(iframeRender(url));
+  if (stored_data.hasOwnProperty(target_id)) {
+    stored_data[target_id] = url;
+  } else {
+    stored_data_length = Object.keys(stored_data).length;
+    stored_data[stored_data_length + 1] = url;
+  }
+
+  save(stored_data);
   target_id = null;
   $("#set_url").val("");
 });
@@ -61,6 +86,12 @@ $("#delFrame").click(function(e) {
   e.preventDefault();
   let id = $(this).attr("data-target");
   $(`#${id}`).remove();
+  console.log("TCL: stored_data", stored_data);
+  if (stored_data.hasOwnProperty(id)) {
+    delete stored_data[id];
+    console.log("TCL: stored_data", stored_data);
+    save(stored_data);
+  }
 });
 
 function iframeRender(url) {
@@ -102,10 +133,11 @@ function frameButtonsRender(id) {
 
   let change_url = $("<button>", {
     class: "btn waves-effect waves-light iframe_btn modal-trigger",
-    href: "#modal2"
+    href: "#modal2",
+    parent_id: id
   }).click(function(e) {
     e.preventDefault();
-    target_id = $(this).attr("id");
+    target_id = $(this).attr("parent_id");
   });
 
   change_url.append(i_url);
@@ -147,4 +179,8 @@ function iframeContainerRender(id) {
   });
 
   return div;
+}
+
+function save(stored_data) {
+  lsh.set("stored_data", stored_data);
 }
