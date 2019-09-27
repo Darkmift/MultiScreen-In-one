@@ -55,7 +55,7 @@ $("#approve").click(function(e) {
 $("#add_one").click(function(e) {
   let container = $(".container");
   console.log("TCL: container", container);
-  iframeContainerRender(stored_data.length + 1).appendTo(container);
+  iframeContainerRender(Object.keys(stored_data).length + 1).appendTo(container);
 });
 
 $("#remove_all").click(function(e) {
