@@ -3,7 +3,20 @@ var target_id;
 $(document).ready(function() {
   $(".fixed-action-btn").floatingActionButton();
   //modal init
-  $(".modal").modal();
+  $(".modal").modal({
+    dismissible: false,
+    complete: function() {
+      $("input").each(function(index, element) {
+        $(element).val("");
+      });
+    }
+  });
+});
+
+$(".cancel").click(function(e) {
+  $("input").each(function(index, element) {
+    $(element).val("");
+  });
 });
 
 $("#approve").click(function(e) {
