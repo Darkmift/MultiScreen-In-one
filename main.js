@@ -45,7 +45,7 @@ $("#approve").click(function(e) {
   if (screen_count > 0) {
     let container = $(".container");
     for (let index = 0; index < screen_count; index++) {
-      iframeContainerRender($(".iframe_container_div").length + 1).appendTo(
+      iframeContainerRender(Object.keys(stored_data).length + 1).appendTo(
         container
       );
     }
@@ -55,7 +55,9 @@ $("#approve").click(function(e) {
 $("#add_one").click(function(e) {
   let container = $(".container");
   console.log("TCL: container", container);
-  iframeContainerRender(Object.keys(stored_data).length + 1).appendTo(container);
+  iframeContainerRender(Object.keys(stored_data).length + 1).appendTo(
+    container
+  );
 });
 
 $("#remove_all").click(function(e) {
@@ -86,10 +88,8 @@ $("#delFrame").click(function(e) {
   e.preventDefault();
   let id = $(this).attr("data-target");
   $(`#${id}`).remove();
-  console.log("TCL: stored_data", stored_data);
   if (stored_data.hasOwnProperty(id)) {
     delete stored_data[id];
-    console.log("TCL: stored_data", stored_data);
     save(stored_data);
   }
 });
@@ -102,45 +102,49 @@ function iframeRender(url) {
   return iframe;
 }
 
+function buttonRender(iconElement, buttonElement) {
+  return $(buttonElement).append($(iconElement));
+}
+
 function frameButtonsRender(id) {
   let btn_container = $("<div>", {
     class: "btn_container"
   });
 
-  let i_resize = $("<i>", {
-    text: "switch_camera",
-    class: "material-icons"
-  });
-
-  let i_url = $("<i>", {
-    text: "create",
-    class: "material-icons"
-  });
-
-  let resize = $("<button>", {
-    class: "btn waves-effect waves-light iframe_btn modal-trigger",
-    href: "#modal3"
-  }).append(i_resize);
+  let resize = buttonRender(
+    $("<i>", {
+      text: "switch_camera",
+      class: "material-icons"
+    }),
+    $("<button>", {
+      class: "btn waves-effect waves-light iframe_btn modal-trigger",
+      href: "#modal3"
+    })
+  );
 
   resize.click(function(e) {
-    // e.preventDefault();
     let url = $(`#${id}`)
       .find("iframe")
       .attr("src");
     $(".currentFrame").attr("src", url);
-    // $('#currentFrame').append(iframeRender(url));
   });
 
-  let change_url = $("<button>", {
-    class: "btn waves-effect waves-light iframe_btn modal-trigger",
-    href: "#modal2",
-    parent_id: id
-  }).click(function(e) {
+  let change_url = buttonRender(
+    $("<i>", {
+      text: "create",
+      class: "material-icons"
+    }),
+    $("<button>", {
+      class: "btn waves-effect waves-light iframe_btn modal-trigger",
+      href: "#modal2",
+      parent_id: id
+    })
+  );
+
+  change_url.click(function(e) {
     e.preventDefault();
     target_id = $(this).attr("parent_id");
   });
-
-  change_url.append(i_url);
 
   resize.appendTo(btn_container);
   change_url.appendTo(btn_container);
@@ -148,16 +152,17 @@ function frameButtonsRender(id) {
 }
 
 function iframeContainerRender(id) {
-  let i_delete = $("<i>", {
-    text: "delete",
-    class: "material-icons"
-  });
-
-  let del_btn = $("<button>", {
-    class:
-      "btn waves-effect waves-light red iframe_btn delete_iframe modal-trigger",
-    href: "#modal4"
-  }).append(i_delete);
+  let del_btn = buttonRender(
+    $("<i>", {
+      text: "delete",
+      class: "material-icons"
+    }),
+    $("<button>", {
+      class:
+        "btn waves-effect waves-light red iframe_btn delete_iframe modal-trigger",
+      href: "#modal4"
+    })
+  );
 
   del_btn.click(function(e) {
     e.preventDefault();
