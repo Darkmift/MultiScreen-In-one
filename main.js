@@ -1,8 +1,19 @@
+/**
+ * hard coded - add url to lists
+ */
+var predefined = ["https://a-z-animals.com/animals/barn-owl/", "https://a-z-animals.com/animals/barb/"]
 var target_id;
 var lsh = new LSH();
+
 const stored_data = lsh.get("stored_data") ?
     lsh.get("stored_data") :
     lsh.set("stored_data", {});
+
+predefined.forEach(function(url) {
+    if (!Object.values(stored_data).includes(url)) {
+        stored_data[uuidv4(stored_data)] = url;
+    }
+});
 
 //side button bottom right
 $(document).ready(function() {
